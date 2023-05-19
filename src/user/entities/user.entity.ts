@@ -1,22 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    BaseEntity,
+    OneToMany,
+} from 'typeorm';
+import BookEntity from './../../book/entities/book.entity';
 @Entity()
-export class User {
+export default class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
-    user_id: number;
+    id: number;
 
-    @Column()
-    firstName: string;
+    @Column({ length: 500 })
+    name: string;
 
-    @Column()
-    lastName: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    password: string;
-
-    @Column()
-    age: number;
+    @OneToMany((type) => BookEntity, (book) => book.user)
+    books: BookEntity[];
 }
